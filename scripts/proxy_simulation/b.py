@@ -1,3 +1,10 @@
+"""
+Proxy simulation to investigate performance upper bound.
+
+Uses the [exafmm library](https://github.com/exafmm/exafmm-t)
+"""
+
+
 import numpy as np
 from exafmm import laplace
 
