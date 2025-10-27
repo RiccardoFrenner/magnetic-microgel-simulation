@@ -1,0 +1,86 @@
+# bash
+
+universe = vanilla
+
+PARAM_STRING=run_$(run_id)_ff_$(agent_ff)_meshw_$(meshwidth)_charge_$(charge_per_bead)
+
+# ====== Own variables =============
+PAPER_DIR = $(PAPER_DIR:MicrogelPaper)
+WORKING_DIR = $ENV(HOME)/$(PAPER_DIR)
+PYPRESSO_EXE = $ENV(HOME)/.local/bin/pypresso
+BASE_OUTPUT_DIR = /work/username/MicrogelPaper/data/better_crosslinking
+OUTPUT_DIR = $(BASE_OUTPUT_DIR)/$(PARAM_STRING)
+# ==================================
+
+initialdir = $(WORKING_DIR)
+executable = $(PYPRESSO_EXE)
+
+output = $ENV(HOME)/logs/$(PARAM_STRING).out
+error = $ENV(HOME)/logs/$(PARAM_STRING).err
+log = $ENV(HOME)/logs/$(PARAM_STRING).log
+
+requirements = FileSystemDomain == "icp.uni-stuttgart.de" \
+               && UidDomain == "icp.uni-stuttgart.de"
+
+arguments = "src/main.py
+arguments = $(arguments:True) $(OUTPUT_DIR)
+arguments = $(arguments:True) --agent_force_field $(agent_ff)
+arguments = $(arguments:True) --desired_mesh_width $(meshwidth)
+arguments = $(arguments:True) --charge_per_bead $(charge_per_bead)"
+
+queue run_id, agent_ff, meshwidth, charge_per_bead from (
+    0, exp, 2.5, 0.05
+    0, exp, 2.5, 0.15
+    0, exp, 2.5, 0.25
+    0, exp, 5.0, 0.05
+    0, exp, 5.0, 0.15
+    0, exp, 5.0, 0.25
+    0, harmonic, 2.5, 0.05
+    0, harmonic, 2.5, 0.15
+    0, harmonic, 2.5, 0.25
+    0, harmonic, 5.0, 0.05
+    0, harmonic, 5.0, 0.15
+    0, harmonic, 5.0, 0.25
+    0, none, 2.5, 0.05
+    0, none, 2.5, 0.15
+    0, none, 2.5, 0.25
+    0, none, 5.0, 0.05
+    0, none, 5.0, 0.15
+    0, none, 5.0, 0.25
+    1, exp, 2.5, 0.05
+    1, exp, 2.5, 0.15
+    1, exp, 2.5, 0.25
+    1, exp, 5.0, 0.05
+    1, exp, 5.0, 0.15
+    1, exp, 5.0, 0.25
+    1, harmonic, 2.5, 0.05
+    1, harmonic, 2.5, 0.15
+    1, harmonic, 2.5, 0.25
+    1, harmonic, 5.0, 0.05
+    1, harmonic, 5.0, 0.15
+    1, harmonic, 5.0, 0.25
+    1, none, 2.5, 0.05
+    1, none, 2.5, 0.15
+    1, none, 2.5, 0.25
+    1, none, 5.0, 0.05
+    1, none, 5.0, 0.15
+    1, none, 5.0, 0.25
+    2, exp, 2.5, 0.05
+    2, exp, 2.5, 0.15
+    2, exp, 2.5, 0.25
+    2, exp, 5.0, 0.05
+    2, exp, 5.0, 0.15
+    2, exp, 5.0, 0.25
+    2, harmonic, 2.5, 0.05
+    2, harmonic, 2.5, 0.15
+    2, harmonic, 2.5, 0.25
+    2, harmonic, 5.0, 0.05
+    2, harmonic, 5.0, 0.15
+    2, harmonic, 5.0, 0.25
+    2, none, 2.5, 0.05
+    2, none, 2.5, 0.15
+    2, none, 2.5, 0.25
+    2, none, 5.0, 0.05
+    2, none, 5.0, 0.15
+    2, none, 5.0, 0.25
+)

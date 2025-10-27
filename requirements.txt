@@ -1,0 +1,10 @@
+numpy
+matplotlib
+networkx
+pandas
+scipy
+seaborn
+statsmodels
+ipykernel
+jinja2
+pytest
